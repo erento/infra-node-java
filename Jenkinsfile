@@ -33,7 +33,7 @@ node {
   }
 
   stage('publish latest image') {
-    myImage.push()
+    myImage.push("latest")
   }
 }
 1
