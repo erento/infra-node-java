@@ -1,8 +1,11 @@
-FROM node:7.7.0-slim
+FROM node:7.10.0-slim
 MAINTAINER 'developers@erento.com'
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    openjdk-7-jre-headless git curl bzip2 nano dnsutils ssh python &&\
+RUN echo "deb http://http.debian.net/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list &&\
+    apt-get update && apt-get install --no-install-recommends -y \
+    git curl bzip2 nano dnsutils ssh python &&\
+    apt-get install --no-install-recommends -y -t jessie-backports \
+    openjdk-8-jre-headless ca-certificates-java &&\
 
     # Npm needs username to checkout git repos.
     git config --global user.name "temp name" &&\
