@@ -1,11 +1,14 @@
-FROM node:7.10.0-slim
+# Phantomjs isn't building with npm5 aka node:8.1.0
+# https://github.com/Medium/phantomjs/issues/707
+# https://github.com/npm/npm/issues/16896
+
+FROM node:7.10-alpine
 MAINTAINER 'developers@erento.com'
 
-RUN echo "deb http://http.debian.net/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list &&\
-    apt-get update && apt-get install --no-install-recommends -y \
-    git curl bzip2 nano dnsutils ssh python &&\
-    apt-get install --no-install-recommends -y -t jessie-backports \
-    openjdk-8-jre-headless ca-certificates-java &&\
+RUN apk add --no-cache \
+    curl bind-tools bash nano \
+    openssh-client git g++ make \
+    openjdk8-jre python &&\
 
     # Npm needs username to checkout git repos.
     git config --global user.name "temp name" &&\
