@@ -1,6 +1,6 @@
 #!groovy
 // define name of project
-projectBaseName = 'node-java'
+def projectBaseName = 'node-java'
 
 node {
   stage('checkout') {
